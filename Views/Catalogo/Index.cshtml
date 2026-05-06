@@ -1,24 +1,35 @@
-﻿@model List<Catalogo.Models.Item>
-<h1>Mi Catálogo</h1>
-<!-- Filtro por género -->
-<div>
-    <a asp-action="Index">Todos</a>
-    @foreach (var gen in ViewBag.Generos as List<string>)
-    {
-        <span> | </span>
-        <a asp-action="Index" asp-route-genero="@gen">@gen</a>
-    }
+@model List<Catalogo.Models.Item>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Mi Catálogo de Videojuegos</h1>
+        <a asp-controller="Catalogo" asp-action="Agregar" class="btn btn-success fw-bold shadow">+ Agregar Nuevo</a>
+    </div>
+
+    <div class="mb-4">
+        <span class="fw-bold me-2">Filtrar por:</span>
+        <a asp-controller="Catalogo" asp-action="Index" asp-route-genero="" class="btn btn-sm btn-outline-dark rounded-pill shadow-sm">Todos</a>
+        
+        @if (ViewBag.Generos != null)
+        {
+            @foreach (var gen in ViewBag.Generos)
+            {
+                <a asp-controller="Catalogo" asp-action="Index" asp-route-genero="@gen" class="btn btn-sm btn-outline-primary rounded-pill shadow-sm ms-1">@gen</a>
+            }
+        }
+    </div>
+
+    <div class="list-group shadow-sm">
+        @foreach (var item in Model)
+        {
+            <a asp-controller="Catalogo" asp-action="Detalle" asp-route-id="@item.Id" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3">
+                <div>
+                    <h5 class="mb-1 fw-bold text-primary">@(string.IsNullOrEmpty(item.Titulo) ? "Sin Título" : item.Titulo)</h5>
+                    <small class="text-muted">@item.Genero (@item.Ano)</small>
+                </div>
+                <span class="badge bg-secondary rounded-pill">Ver detalles</span>
+            </a>
+        }
+    </div>
 </div>
-<hr />
-<!-- Lista de items -->
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>
-            <a asp-action="Detalle" asp-route-id="@item.Id">@item.Titulo</a>
-            -- @item.Genero (@item.Ano)
-        </li>
-    }
-</ul>
-<hr />
-<a asp-action="Agregar">+ Agregar Videojuego</a>
