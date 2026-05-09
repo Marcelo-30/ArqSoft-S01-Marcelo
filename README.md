@@ -31,4 +31,4 @@ Este proyecto es una aplicación web desarrollada con **ASP.NET Core MVC** como 
 
 1. Clonar el repositorio:
    ```bash
-   git clone [https://github.com/MarceloMedina/ArqSoft-S01-MarceloMedina.git](https://github.com/MarceloMedina/ArqSoft-S01-MarceloMedina.git)
+   https://github.com/Marcelo-30/ArqSoft-S01-Marcelo/tree/master
